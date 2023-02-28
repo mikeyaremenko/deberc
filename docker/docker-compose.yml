@@ -1,15 +1,26 @@
 version: '3.8'
 services:
   db:
+    container_name: postgresql
     image: postgres:14.1-alpine
     restart: always
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      POSTGRES_DB: deberc
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     ports:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+  pdadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
 volumes:
   db:
     driver: local
