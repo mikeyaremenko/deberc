@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/deberc
-    username: admin
-    password: admin
+    url: jdbc:postgresql://host.docker.internal:5432/deberc
+    username: deberc
+    password: deberc
     name: deberc
   sql:
     init:
