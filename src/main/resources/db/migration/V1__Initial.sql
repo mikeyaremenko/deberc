@@ -49,8 +49,10 @@ CREATE TABLE IF NOT EXISTS combination (
     combination_type INT NOT NULL,
     team_id INT NOT NULL,
     score INT NOT NULL,
+    round_id INT NOT NULL,
 
     CONSTRAINT team_fk FOREIGN KEY(team_id) REFERENCES team(id),
+    CONSTRAINT round_fk FOREIGN KEY(round_id) REFERENCES round(id)
 );
 
 CREATE TABLE IF NOT EXISTS card2combination (
@@ -74,30 +76,20 @@ CREATE TABLE IF NOT EXISTS round (
     CONSTRAINT vote_player_fk FOREIGN KEY(vote_player_id) REFERENCES player(id)
 );
 
-CREATE TABLE IF NOT EXISTS combination2round (
-    combination_id INT,
-    round_id INT,
-    CONSTRAINT combination2round_pk PRIMARY KEY (combination_id, round_id)
-);
-
 CREATE TABLE IF NOT EXISTS trick (
     id GENERATED ALWAYS AS IDENTITY,
     winner_team_id INT NOT NULL,
     starter_player_id INT NOT NULL,
     score INT NULL,
+    round_id INT NOT NULL,
 
     CONSTRAINT winner_team_fk FOREIGN KEY(winner_team_id) REFERENCES team(id),
-    CONSTRAINT starter_player_fk FOREIGN KEY(starter_player_id) REFERENCES player(id)
+    CONSTRAINT starter_player_fk FOREIGN KEY(starter_player_id) REFERENCES player(id),
+    CONSTRAINT round_fk FOREIGN KEY(round_id) REFERENCES round(id)
 );
 
 CREATE TABLE IF NOT EXISTS card2trick (
     card_id INT,
     trick_id INT,
     CONSTRAINT card2trick_pk PRIMARY KEY (card_id, round_id)
-);
-
-CREATE TABLE IF NOT EXISTS trick2round (
-    trick_id INT,
-    round_id INT,
-    CONSTRAINT trick2round_pk PRIMARY KEY (trick_id, round_id)
 );
